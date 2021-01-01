@@ -22,6 +22,12 @@ body {
     margin-left: 25%;
 }
 
+@media screen and (max-width:768px) {
+    .adjust {
+        margin-left: 0%;
+    }
+}
+
 @import './playerBg';
 @import './nav';
 @import './player';

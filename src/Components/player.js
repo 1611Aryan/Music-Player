@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlay,
@@ -6,6 +6,7 @@ import {
   faAngleRight,
   faPause,
 } from "@fortawesome/free-solid-svg-icons";
+import { autoPlaySong, activeSongHandler } from "./../utilFunc";
 
 const Player = ({
   currentSong,
@@ -16,17 +17,8 @@ const Player = ({
   setIsPlaying,
   audioRef,
 }) => {
-  //?Effect
-  useEffect(() => {
-    // const updatedSongs = songs.map((s) => {
-    //   if (s.id === currentSong.id) {
-    //     return { ...s, active: true };
-    //   } else {
-    //     return { ...s, active: false };
-    //   }
-    // });
-    // setSongs(updatedSongs);
-  }, [currentSong]);
+  //?Ref
+  const trackRef = useRef(null);
   //?
   //?Event Handlers
   const playHandler = () => {
@@ -51,40 +43,47 @@ const Player = ({
   const dragHandler = (e) => {
     audioRef.current.currentTime = e.target.value;
   };
-  const activeSongHandler = (changedSong) => {
-    const updatedSongs = songs.map((s) => {
-      if (s.id === changedSong.id) {
-        return { ...s, active: true };
-      } else {
-        return { ...s, active: false };
-      }
-    });
-    setSongs(updatedSongs);
-  };
+  // const activeSongHandler = (changedSong) => {
+  //   const updatedSongs = songs.map((s) => {
+  //     if (s.id === changedSong.id) {
+  //       return { ...s, active: true };
+  //     } else {
+  //       return { ...s, active: false };
+  //     }
+  //   });
+  //   setSongs(updatedSongs);
+  // };
   const changeSong = async (direction) => {
     const currentIndex = songs.findIndex((song) => song.id === currentSong.id);
     if (direction === "next") {
       await setCurrentSong(songs[(currentIndex + 1) % songs.length]);
-      activeSongHandler(songs[(currentIndex + 1) % songs.length]);
+      activeSongHandler(
+        songs[(currentIndex + 1) % songs.length],
+        songs,
+        setSongs
+      );
     } else {
       if (currentIndex - 1 < 0) {
         await setCurrentSong(songs[songs.length - 1]);
-        activeSongHandler(songs[songs.length - 1]);
-        if (isPlaying) {
-          audioRef.current.play();
-        }
+        activeSongHandler(songs[songs.length - 1], songs, setSongs);
+        autoPlaySong(isPlaying, audioRef);
+        trackRef.current.style.transform = "translateX(0%)";
         return;
       }
       await setCurrentSong(songs[(currentIndex - 1) % songs.length]);
-      activeSongHandler(songs[(currentIndex - 1) % songs.length]);
+      activeSongHandler(
+        songs[(currentIndex - 1) % songs.length],
+        songs,
+        setSongs
+      );
     }
-    if (isPlaying) {
-      audioRef.current.play();
-    }
+    trackRef.current.style.transform = "translateX(0%)";
+    autoPlaySong(isPlaying, audioRef);
   };
   const songEndHandler = async () => {
     const currentIndex = songs.findIndex((song) => song.id === currentSong.id);
     await setCurrentSong(songs[(currentIndex + 1) % songs.length]);
+    trackRef.current.style.transform = "translateX(0%)";
     if (isPlaying) {
       audioRef.current.play();
     }
@@ -119,7 +118,7 @@ const Player = ({
             value={songInfo.currentTime}
             type="range"
           />
-          <div style={sliderPos} className="thumb"></div>
+          <div ref={trackRef} style={sliderPos} className="thumb"></div>
         </div>
 
         <p>{getTime(songInfo.duration || 0)}</p>

@@ -14,15 +14,23 @@ body {
   font-family: poppins;
   font-display: optional;
   width: 100%;
+  height: 100vh;
 }
 
 .App {
   -webkit-transition: margin ease-in-out 0.5s;
   transition: margin ease-in-out 0.5s;
+  height: 100vh;
 }
 
 .adjust {
   margin-left: 25%;
+}
+
+@media screen and (max-width: 768px) {
+  .adjust {
+    margin-left: 0%;
+  }
 }
 
 .playerBg {
@@ -32,6 +40,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
+  background: #272727;
 }
 
 .playerBg img {

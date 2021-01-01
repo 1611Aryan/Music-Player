@@ -1,3 +1,4 @@
+import { autoPlaySong, activeSongHandler } from "./../utilFunc";
 const LibrarySong = ({
   song,
   setCurrentSong,
@@ -8,17 +9,8 @@ const LibrarySong = ({
 }) => {
   const currentSongHandler = async () => {
     setCurrentSong(song);
-    const updatedSongs = songs.map((s) => {
-      if (s.id === song.id) {
-        return { ...s, active: true };
-      } else {
-        return { ...s, active: false };
-      }
-    });
-    await setSongs(updatedSongs);
-    if (isPlaying) {
-      audioRef.current.play();
-    }
+    activeSongHandler(song, songs, setSongs);
+    autoPlaySong(isPlaying, audioRef);
   };
   return (
     <div
