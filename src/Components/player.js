@@ -29,32 +29,23 @@ const Player = ({
       audioRef.current.play();
     }
   };
-  const timeHandler = (e) => {
+  const timeHandler = e => {
     const currentTime = e.target.currentTime;
     const duration = e.target.duration;
     const transformPercentage = Math.round((currentTime / duration) * 100);
     setSongInfo({ currentTime, duration, transformPercentage });
   };
-  const getTime = (time) => {
+  const getTime = time => {
     return (
       Math.floor(time / 60) + ":" + ("0" + Math.floor(time % 60)).slice(-2)
     );
   };
-  const dragHandler = (e) => {
+  const dragHandler = e => {
     audioRef.current.currentTime = e.target.value;
   };
-  // const activeSongHandler = (changedSong) => {
-  //   const updatedSongs = songs.map((s) => {
-  //     if (s.id === changedSong.id) {
-  //       return { ...s, active: true };
-  //     } else {
-  //       return { ...s, active: false };
-  //     }
-  //   });
-  //   setSongs(updatedSongs);
-  // };
-  const changeSong = async (direction) => {
-    const currentIndex = songs.findIndex((song) => song.id === currentSong.id);
+
+  const changeSong = async direction => {
+    const currentIndex = songs.findIndex(song => song.id === currentSong.id);
     if (direction === "next") {
       await setCurrentSong(songs[(currentIndex + 1) % songs.length]);
       activeSongHandler(
@@ -81,7 +72,7 @@ const Player = ({
     autoPlaySong(isPlaying, audioRef);
   };
   const songEndHandler = async () => {
-    const currentIndex = songs.findIndex((song) => song.id === currentSong.id);
+    const currentIndex = songs.findIndex(song => song.id === currentSong.id);
     await setCurrentSong(songs[(currentIndex + 1) % songs.length]);
     trackRef.current.style.transform = "translateX(0%)";
     if (isPlaying) {

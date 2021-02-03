@@ -22,7 +22,7 @@ const Library = ({
         <FontAwesomeIcon onClick={crossHandler} icon={faArrowRight} />
       </div>
       <div className="songList">
-        {songs.map((song) => (
+        {songs.map(song => (
           <LibrarySong
             songs={songs}
             song={song}

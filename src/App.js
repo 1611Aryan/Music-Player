@@ -6,32 +6,32 @@ import Player from "./Components/player";
 import Library from "./Components/library";
 import chillHop from "./data";
 import { autoPlaySong, activeSongHandler } from "./utilFunc";
+// import Visualiser from "./Components/visualiser";
 import "./Style/app.css";
 function App() {
   //?Ref
   const audioRef = useRef(null);
   //?
   //?State
-  const [songs, setSongs] = useState(chillHop());
+  const [songs, setSongs] = useState(chillHop);
   const [currentSong, setCurrentSong] = useState(songs[0]);
   const [isPlaying, setIsPlaying] = useState(false);
   const [libraryStatus, setLibraryStatus] = useState(false);
+  const [offset, setOffset] = useState(0);
   //?
   //?Events
   let touchStartTime, initX, distX, finX, delTime;
-  const touchStart = (e) => {
+  const touchStart = e => {
     touchStartTime = new Date().getTime();
     initX = e.changedTouches[0].clientX;
     distX = 0;
   };
-  const touchEnd = (e) => {
+  const touchEnd = e => {
     finX = e.changedTouches[0].clientX;
     delTime = new Date().getTime() - touchStartTime;
     distX = finX - initX;
     if (delTime > 150 && Math.abs(distX) > 50) {
-      const currentIndex = songs.findIndex(
-        (song) => song.id === currentSong.id
-      );
+      const currentIndex = songs.findIndex(song => song.id === currentSong.id);
       if (distX > 0) {
         if (currentIndex - 1 < 0) {
           setCurrentSong(songs[songs.length - 1]);
@@ -63,7 +63,12 @@ function App() {
       onTouchEnd={touchEnd}
       className={`App ${libraryStatus ? "adjust" : ""}`}
     >
-      <Nav libraryStatus={libraryStatus} setLibraryStatus={setLibraryStatus} />
+      <Nav
+        libraryStatus={libraryStatus}
+        setLibraryStatus={setLibraryStatus}
+        offset={offset}
+        setOffset={setOffset}
+      />
       <PlayerBackground currentSong={currentSong} />
       <Music currentSong={currentSong} isPlaying={isPlaying} />
       <Player
@@ -75,6 +80,7 @@ function App() {
         setIsPlaying={setIsPlaying}
         setSongs={setSongs}
       />
+      {/* <Visualiser currentSong={currentSong} isPlaying={isPlaying} /> */}
       <Library
         songs={songs}
         setCurrentSong={setCurrentSong}

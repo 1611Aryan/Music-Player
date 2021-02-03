@@ -12,6 +12,7 @@ body {
     font-family: poppins;
     font-display: optional;
     width: 100%;
+    overflow-x: hidden;
 }
 
 .App {
@@ -32,4 +33,5 @@ body {
 @import './nav';
 @import './player';
 @import './song';
+@import './visualizer';
 @import './library';
