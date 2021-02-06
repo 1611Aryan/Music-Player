@@ -1,6 +1,7 @@
 import LibrarySong from "./librarySong";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import MoreSongs from "./moreSongs";
 
 const Library = ({
   songs,
@@ -10,6 +11,9 @@ const Library = ({
   setSongs,
   libraryStatus,
   setLibraryStatus,
+  offset,
+  setOffset,
+  newSongs,
 }) => {
   //?Event handler
   const crossHandler = () => {
@@ -34,6 +38,7 @@ const Library = ({
           />
         ))}
       </div>
+      <MoreSongs offset={offset} setOffset={setOffset} newSongs={newSongs} />
     </div>
   );
 };

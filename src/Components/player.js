@@ -74,6 +74,11 @@ const Player = ({
   const songEndHandler = async () => {
     const currentIndex = songs.findIndex(song => song.id === currentSong.id);
     await setCurrentSong(songs[(currentIndex + 1) % songs.length]);
+    activeSongHandler(
+      songs[(currentIndex + 1) % songs.length],
+      songs,
+      setSongs
+    );
     trackRef.current.style.transform = "translateX(0%)";
     if (isPlaying) {
       audioRef.current.play();

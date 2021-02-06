@@ -415,6 +415,7 @@ nav button:hover {
   -o-object-fit: cover;
      object-fit: cover;
   display: inline-block;
+  background: #4e4e4e;
 }
 
 .library .songList .library-song .song-description {
@@ -439,6 +440,36 @@ nav button:hover {
 
 .library .songList .selected:hover {
   background: #c4e9ff;
+}
+
+.library .loadMore {
+  width: 100%;
+  height: 10%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-transition: background ease-in 0.3s, -webkit-transform ease-out 0.3s;
+  transition: background ease-in 0.3s, -webkit-transform ease-out 0.3s;
+  transition: transform ease-out 0.3s, background ease-in 0.3s;
+  transition: transform ease-out 0.3s, background ease-in 0.3s, -webkit-transform ease-out 0.3s;
+}
+
+.library .loadMore span {
+  padding: 1rem;
+  cursor: pointer;
+  font-size: 1.25rem;
+}
+
+.library .loadMore:hover {
+  background: #dbf2ff;
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
 }
 
 .library::-webkit-scrollbar {

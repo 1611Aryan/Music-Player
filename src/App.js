@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import PlayerBackground from "./Components/playerBackground";
 import Nav from "./Components/nav";
 import Music from "./Components/music";
@@ -13,11 +13,17 @@ function App() {
   const audioRef = useRef(null);
   //?
   //?State
-  const [songs, setSongs] = useState(chillHop);
+  const [songs, setSongs] = useState(chillHop.data);
   const [currentSong, setCurrentSong] = useState(songs[0]);
   const [isPlaying, setIsPlaying] = useState(false);
   const [libraryStatus, setLibraryStatus] = useState(false);
-  const [offset, setOffset] = useState(0);
+  const [offset, setOffset] = useState(5);
+  //?
+  //?Use Effect
+  useEffect(() => {
+    chillHop.addSongs(0);
+  }, []);
+
   //?
   //?Events
   let touchStartTime, initX, distX, finX, delTime;
@@ -63,12 +69,7 @@ function App() {
       onTouchEnd={touchEnd}
       className={`App ${libraryStatus ? "adjust" : ""}`}
     >
-      <Nav
-        libraryStatus={libraryStatus}
-        setLibraryStatus={setLibraryStatus}
-        offset={offset}
-        setOffset={setOffset}
-      />
+      <Nav libraryStatus={libraryStatus} setLibraryStatus={setLibraryStatus} />
       <PlayerBackground currentSong={currentSong} />
       <Music currentSong={currentSong} isPlaying={isPlaying} />
       <Player
@@ -89,6 +90,9 @@ function App() {
         setSongs={setSongs}
         libraryStatus={libraryStatus}
         setLibraryStatus={setLibraryStatus}
+        offset={offset}
+        setOffset={setOffset}
+        newSongs={chillHop.addSongs}
       />
     </div>
   );
