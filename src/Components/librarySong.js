@@ -28,7 +28,7 @@ const LibrarySong = ({
       }}
       className={`library-song ${song.active ? "selected" : ""}`}
     >
-      <img src={song.cover} alt="coverImage" />
+      <img loading="lazy" src={song.cover} alt="coverImage" />
       <div className="song-description">
         <h3>{song.name}</h3>
         <h4>{song.artist}</h4>

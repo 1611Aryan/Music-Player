@@ -18,11 +18,11 @@ function App() {
   const [currentSong, setCurrentSong] = useState(songs[0]);
   const [isPlaying, setIsPlaying] = useState(false);
   const [libraryStatus, setLibraryStatus] = useState(false);
-  const [offset, setOffset] = useState(5);
+  const [offset, setOffset] = useState(10);
   //?
   //?Use Effect
   useEffect(() => {
-    chillHop.addSongs(0);
+    chillHop.addSongs(0, setSongs);
   }, []);
 
   //?

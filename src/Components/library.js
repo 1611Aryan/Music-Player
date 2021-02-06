@@ -46,7 +46,12 @@ const Library = ({
           />
         ))}
       </StyledSongList>
-      <MoreSongs offset={offset} setOffset={setOffset} newSongs={newSongs} />
+      <MoreSongs
+        offset={offset}
+        setOffset={setOffset}
+        newSongs={newSongs}
+        setSongs={setSongs}
+      />
     </StyledLibrary>
   );
 };

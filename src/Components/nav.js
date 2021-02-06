@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMusic } from "@fortawesome/free-solid-svg-icons";
+import { faMusic, faCog } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 
 const Nav = ({ libraryStatus, setLibraryStatus }) => {
@@ -16,6 +16,7 @@ const Nav = ({ libraryStatus, setLibraryStatus }) => {
         Library &nbsp;
         <FontAwesomeIcon icon={faMusic} />
       </button>
+      <FontAwesomeIcon className="settings" icon={faCog} />
     </StyledNav>
   );
 };
@@ -32,6 +33,7 @@ const StyledNav = styled.nav`
       color: #ff4b5c;
     }
   }
+
   button {
     font-size: 1.5rem;
     background: transparent;
@@ -45,6 +47,14 @@ const StyledNav = styled.nav`
     &:hover {
       background: rgb(58, 58, 58);
       color: white;
+    }
+  }
+  .settings {
+    font-size: 2.5rem;
+    cursor: pointer;
+    transition: 1s ease;
+    &:hover {
+      transform: rotate(360deg);
     }
   }
   @media screen and (max-width: 768px) {

@@ -50,24 +50,27 @@ const chillHop = {
     },
   ],
 
-  addSongs: offset => {
+  limit: 10,
+
+  addSongs: (offset, setSongs) => {
     axios
       .get(
-        `https://api.napster.com/v2.2/tracks/top?limit=10&offset=${offset}&apikey=${process.env.REACT_APP_NAPSTER_KEY}`
+        `https://api.napster.com/v2.2/tracks/top?limit=${chillHop.limit}&offset=${offset}&apikey=${process.env.REACT_APP_NAPSTER_KEY}`
       )
-      .then(res =>
+      .then(res => {
         res.data.tracks.map(track =>
           chillHop.data.push({
             name: track.name,
-            cover: `https://direct.rhapsody.com/imageserver/v2/albums/${track.albumId}/images/300x300.jpg`,
+            cover: `https://direct.rhapsody.com/imageserver/v2/albums/${track.albumId}/images/250x250.jpg`,
             artist: track.artistName,
             audio: track.previewURL,
             color: ["#F58E7A", "#494152"],
             id: uuidv4(),
             active: false,
           })
-        )
-      )
+        );
+        setSongs(chillHop.data);
+      })
       .catch(err => console.log(err));
   },
 };

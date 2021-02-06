@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
-const MoreSongs = ({ offset, setOffset, newSongs }) => {
+const MoreSongs = ({ offset, setOffset, newSongs, setSongs }) => {
   const clickHandler = () => {
-    newSongs(offset);
-    setOffset((offset += 5));
+    newSongs(offset, setSongs);
+    setOffset((offset += 10));
   };
 
   return (

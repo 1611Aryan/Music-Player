@@ -58,8 +58,6 @@ const Player = ({
       if (currentIndex - 1 < 0) {
         await setCurrentSong(songs[songs.length - 1]);
         activeSongHandler(songs[songs.length - 1], songs, setSongs);
-        autoPlaySong(isPlaying, audioRef);
-        trackRef.current.style.transform = "translateX(0%)";
         return;
       }
       await setCurrentSong(songs[(currentIndex - 1) % songs.length]);
