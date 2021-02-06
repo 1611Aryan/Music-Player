@@ -53,7 +53,7 @@ const chillHop = {
   addSongs: offset => {
     axios
       .get(
-        `https://api.napster.com/v2.2/tracks/top?limit=5&offset=${offset}&apikey=${process.env.REACT_APP_NAPSTER_KEY}`
+        `https://api.napster.com/v2.2/tracks/top?limit=10&offset=${offset}&apikey=${process.env.REACT_APP_NAPSTER_KEY}`
       )
       .then(res =>
         res.data.tracks.map(track =>

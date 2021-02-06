@@ -7,6 +7,7 @@ import {
   faPause,
 } from "@fortawesome/free-solid-svg-icons";
 import { autoPlaySong, activeSongHandler } from "./../utilFunc";
+import styled from "styled-components";
 
 const Player = ({
   currentSong,
@@ -98,7 +99,7 @@ const Player = ({
   };
   //?
   return (
-    <div className="player">
+    <StyledPlayer>
       <div className="time-controls">
         <p>{getTime(songInfo.currentTime)}</p>
         <div
@@ -143,7 +144,111 @@ const Player = ({
         ref={audioRef}
         src={currentSong.audio}
       ></audio>
-    </div>
+    </StyledPlayer>
   );
 };
+
+const StyledPlayer = styled.div`
+  min-height: 20vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  .time-controls {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    p {
+      width: 5rem;
+      padding: 1rem;
+      font-size: clamp(1rem, 4vw, 1.5rem);
+    }
+    .track {
+      width: 100%;
+      height: 0.5rem;
+      position: relative;
+      border-radius: 1rem;
+      padding: 0.5rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      input {
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+        -webkit-appearance: none;
+        background: transparent;
+        border: 0;
+        &:focus {
+          border: 0;
+          outline: 0;
+        }
+        &::-webkit-slider-thumb {
+          appearance: none;
+          height: 14px;
+          width: 14px;
+        }
+        &::-moz-range-thumb {
+          appearance: none;
+          height: 14px;
+          width: 14px;
+          background: transparent;
+          border: 0;
+        }
+      }
+      .thumb {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgb(231, 231, 231);
+        pointer-events: none;
+        transform: translateX(100%);
+      }
+    }
+  }
+  .play-controls {
+    width: 30%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .icon {
+      font-size: clamp(1.25rem, 5vw, 2rem);
+      cursor: pointer;
+      transition: color ease-out 0.1s;
+      &:hover {
+        color: #1f1f1f;
+      }
+    }
+  }
+
+  @media screen and (max-width: 1024px) {
+    .time-controls {
+      width: 60%;
+    }
+    .play-controls {
+      width: 40%;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .time-controls {
+      width: 70%;
+    }
+  }
+
+  @media screen and (max-width: 425px) {
+    .time-controls {
+      width: 95%;
+    }
+    .play-controls {
+      width: 60%;
+    }
+  }
+`;
+
 export default Player;

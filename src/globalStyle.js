@@ -1,3 +1,6 @@
+import { createGlobalStyle } from "styled-components";
+
+const GlobalStyle = createGlobalStyle`
 * {
     margin: 0;
     padding: 0;
@@ -9,10 +12,11 @@ body {
     -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    font-family: poppins;
-    font-display: optional;
     width: 100%;
     overflow-x: hidden;
+    font-family: 'Poppins', sans-serif;
+    font-display: optional;
+    
 }
 
 .App {
@@ -28,10 +32,6 @@ body {
         margin-left: 0%;
     }
 }
+`;
 
-@import './playerBg';
-@import './nav';
-@import './player';
-@import './song';
-@import './visualizer';
-@import './library';
+export default GlobalStyle;

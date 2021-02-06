@@ -7,7 +7,8 @@ import Library from "./Components/library";
 import chillHop from "./data";
 import { autoPlaySong, activeSongHandler } from "./utilFunc";
 // import Visualiser from "./Components/visualiser";
-import "./Style/app.css";
+
+import GlobalStyle from "./globalStyle";
 function App() {
   //?Ref
   const audioRef = useRef(null);
@@ -69,6 +70,7 @@ function App() {
       onTouchEnd={touchEnd}
       className={`App ${libraryStatus ? "adjust" : ""}`}
     >
+      <GlobalStyle />
       <Nav libraryStatus={libraryStatus} setLibraryStatus={setLibraryStatus} />
       <PlayerBackground currentSong={currentSong} />
       <Music currentSong={currentSong} isPlaying={isPlaying} />
