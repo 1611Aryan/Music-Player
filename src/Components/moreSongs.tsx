@@ -1,6 +1,13 @@
 import styled from "styled-components";
 
-const MoreSongs = ({ offset, setOffset, newSongs, setSongs }) => {
+import { moreSongs } from "./../interface";
+
+const MoreSongs: React.FC<moreSongs> = ({
+  offset,
+  setOffset,
+  newSongs,
+  setSongs,
+}) => {
   const clickHandler = () => {
     newSongs(offset, setSongs);
     setOffset((offset += 10));

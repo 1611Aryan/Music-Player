@@ -52,13 +52,28 @@ const chillHop = {
 
   limit: 10,
 
-  addSongs: (offset, setSongs) => {
+  addSongs: (
+    offset: number,
+    setSongs: React.Dispatch<
+      React.SetStateAction<
+        {
+          name: string;
+          cover: string;
+          artist: string;
+          audio: string;
+          color: string[];
+          id: any;
+          active: boolean;
+        }[]
+      >
+    >
+  ) => {
     axios
       .get(
         `https://api.napster.com/v2.2/tracks/top?limit=${chillHop.limit}&offset=${offset}&apikey=${process.env.REACT_APP_NAPSTER_KEY}`
       )
       .then(res => {
-        res.data.tracks.map(track =>
+        res.data.tracks.forEach((track: any) => {
           chillHop.data.push({
             name: track.name,
             cover: `https://direct.rhapsody.com/imageserver/v2/albums/${track.albumId}/images/250x250.jpg`,
@@ -67,9 +82,9 @@ const chillHop = {
             color: ["#F58E7A", "#494152"],
             id: uuidv4(),
             active: false,
-          })
-        );
-        setSongs(chillHop.data);
+          });
+          setSongs(chillHop.data);
+        });
       })
       .catch(err => console.log(err));
   },

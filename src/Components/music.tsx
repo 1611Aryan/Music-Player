@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
-const Music = ({ currentSong, isPlaying }) => {
+import { music } from "./../interface";
+
+const Music: React.FC<music> = ({ currentSong, isPlaying }) => {
   return (
     <SongContainer>
       <img
@@ -20,6 +22,7 @@ const SongContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  z-index: 1;
   img {
     display: inline-block;
     width: 20%;
@@ -27,6 +30,8 @@ const SongContainer = styled.div`
     transform-origin: center;
     transition: all ease 0.4s;
     background: #666666;
+    transition: all ease 0.5s;
+    filter: var(--coverImageFilter);
   }
   h2 {
     padding: 3rem 1rem 0rem 1rem;

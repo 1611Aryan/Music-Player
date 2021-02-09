@@ -1,6 +1,7 @@
 import styled from "styled-components";
+import { playerbg } from "./../interface";
 
-const PlayerBackground = ({ currentSong }) => {
+const PlayerBackground: React.FC<playerbg> = ({ currentSong }) => {
   return (
     <StyledPlayerBackground>
       <img src={currentSong.cover} alt="" />
@@ -28,7 +29,7 @@ const StyledPlayerBackground = styled.div`
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(148, 148, 148, 0.35);
+    background: var(--playerBg);
     backdrop-filter: blur(10px);
   }
 `;

@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlay,
@@ -6,10 +6,11 @@ import {
   faAngleRight,
   faPause,
 } from "@fortawesome/free-solid-svg-icons";
-import { autoPlaySong, activeSongHandler } from "./../utilFunc";
+import { autoPlaySong, activeSongHandler } from "../utilFunc";
 import styled from "styled-components";
+import { player } from "./../interface";
 
-const Player = ({
+const Player: React.FC<player> = ({
   currentSong,
   setCurrentSong,
   songs,
@@ -17,38 +18,38 @@ const Player = ({
   isPlaying,
   setIsPlaying,
   audioRef,
+  trackRef,
 }) => {
   //?Ref
-  const trackRef = useRef(null);
+
   //?
   //?Event Handlers
   const playHandler = () => {
     setIsPlaying(!isPlaying);
-    if (isPlaying) {
-      audioRef.current.pause();
-    } else {
-      audioRef.current.play();
-    }
+    if (audioRef.current !== null)
+      if (isPlaying) audioRef.current.pause();
+      else audioRef.current.play();
   };
-  const timeHandler = e => {
+  const timeHandler = (e: any) => {
     const currentTime = e.target.currentTime;
     const duration = e.target.duration;
     const transformPercentage = Math.round((currentTime / duration) * 100);
     setSongInfo({ currentTime, duration, transformPercentage });
   };
-  const getTime = time => {
+  const getTime = (time: number) => {
     return (
       Math.floor(time / 60) + ":" + ("0" + Math.floor(time % 60)).slice(-2)
     );
   };
-  const dragHandler = e => {
-    audioRef.current.currentTime = e.target.value;
+  const dragHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (audioRef.current !== null)
+      audioRef.current.currentTime = Number(e.target.value);
   };
 
-  const changeSong = async direction => {
+  const changeSong = async (direction: string) => {
     const currentIndex = songs.findIndex(song => song.id === currentSong.id);
     if (direction === "next") {
-      await setCurrentSong(songs[(currentIndex + 1) % songs.length]);
+      setCurrentSong(songs[(currentIndex + 1) % songs.length]);
       activeSongHandler(
         songs[(currentIndex + 1) % songs.length],
         songs,
@@ -56,32 +57,33 @@ const Player = ({
       );
     } else {
       if (currentIndex - 1 < 0) {
-        await setCurrentSong(songs[songs.length - 1]);
+        setCurrentSong(songs[songs.length - 1]);
         activeSongHandler(songs[songs.length - 1], songs, setSongs);
         return;
       }
-      await setCurrentSong(songs[(currentIndex - 1) % songs.length]);
+      setCurrentSong(songs[(currentIndex - 1) % songs.length]);
       activeSongHandler(
         songs[(currentIndex - 1) % songs.length],
         songs,
         setSongs
       );
     }
-    trackRef.current.style.transform = "translateX(0%)";
+    if (trackRef.current) trackRef.current.style.transform = "translateX(0%)";
     autoPlaySong(isPlaying, audioRef);
   };
   const songEndHandler = async () => {
     const currentIndex = songs.findIndex(song => song.id === currentSong.id);
-    await setCurrentSong(songs[(currentIndex + 1) % songs.length]);
+    setCurrentSong(songs[(currentIndex + 1) % songs.length]);
     activeSongHandler(
       songs[(currentIndex + 1) % songs.length],
       songs,
       setSongs
     );
-    trackRef.current.style.transform = "translateX(0%)";
-    if (isPlaying) {
-      audioRef.current.play();
-    }
+    if (trackRef.current) trackRef.current.style.transform = "translateX(0%)";
+    if (audioRef.current)
+      if (isPlaying) {
+        audioRef.current.play();
+      }
   };
   //?
   //?State
@@ -203,7 +205,8 @@ const StyledPlayer = styled.div`
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgb(231, 231, 231);
+        transition: all ease-out 0.5s;
+        background: var(--slider);
         pointer-events: none;
         transform: translateX(100%);
       }

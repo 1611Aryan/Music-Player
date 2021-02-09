@@ -4,7 +4,9 @@ import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import MoreSongs from "./moreSongs";
 import styled from "styled-components";
 
-const Library = ({
+import { library } from "./../interface";
+
+const Library: React.FC<library> = ({
   songs,
   setCurrentSong,
   audioRef,
@@ -15,6 +17,7 @@ const Library = ({
   offset,
   setOffset,
   newSongs,
+  trackRef,
 }) => {
   //?Event handler
   const crossHandler = () => {
@@ -43,6 +46,7 @@ const Library = ({
             key={song.id}
             setSongs={setSongs}
             setLibraryStatus={setLibraryStatus}
+            trackRef={trackRef}
           />
         ))}
       </StyledSongList>
@@ -64,7 +68,7 @@ const StyledLibrary = styled.div`
   height: 100%;
   z-index: 2;
   opacity: 1;
-  background: rgba(255, 255, 255, 0.5);
+  background: var(--library);
   box-shadow: 5px 2px 15px 10px rgba(black, 0.2);
   transition: all 0.5s ease-in-out;
   overflow: hidden scroll;
@@ -124,10 +128,11 @@ const StyledSongList = styled.div`
   width: 100%;
   .selected {
     transform: scale(1.1);
-    background: rgb(196, 233, 255);
+    background: var(--librarySongSelected);
 
     &:hover {
-      background: rgb(196, 233, 255);
+      transform: scale(1.2);
+      background: var(--librarySongSelected);
     }
   }
 `;

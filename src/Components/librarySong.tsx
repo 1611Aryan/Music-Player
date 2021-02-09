@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { autoPlaySong, activeSongHandler } from "./../utilFunc";
-const LibrarySong = ({
+import { librarySong } from "./../interface";
+
+const LibrarySong: React.FC<librarySong> = ({
   song,
   setCurrentSong,
   songs,
@@ -8,7 +10,13 @@ const LibrarySong = ({
   audioRef,
   setSongs,
   setLibraryStatus,
+  trackRef,
 }) => {
+  const clickHandler = () => {
+    currentSongHandler();
+    CloseLibrary();
+    if (trackRef.current) trackRef.current.style.transform = "translateX(0%)";
+  };
   const currentSongHandler = async () => {
     setCurrentSong(song);
     activeSongHandler(song, songs, setSongs);
@@ -22,10 +30,7 @@ const LibrarySong = ({
 
   return (
     <StyledLibrarySong
-      onClick={() => {
-        currentSongHandler();
-        CloseLibrary();
-      }}
+      onClick={clickHandler}
       className={`library-song ${song.active ? "selected" : ""}`}
     >
       <img loading="lazy" src={song.cover} alt="coverImage" />
@@ -45,8 +50,9 @@ const StyledLibrarySong = styled.div`
   justify-content: space-between;
   cursor: pointer;
   transition: transform ease-out 0.3s, background ease-in 0.3s;
+  color: var(--librarySongText);
   &:hover {
-    background: rgb(219, 242, 255);
+    background: var(--librarySongHover);
     transform: scale(1.1);
   }
   img {
@@ -55,6 +61,7 @@ const StyledLibrarySong = styled.div`
     object-fit: cover;
     display: inline-block;
     background: #4e4e4e;
+    filter: var(--coverImageFilter);
   }
   .song-description {
     width: 50%;
