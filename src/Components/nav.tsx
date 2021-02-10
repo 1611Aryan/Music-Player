@@ -28,7 +28,7 @@ const StyledNav = styled.nav`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  z-index: 998;
+  z-index: 4;
   h1 {
     font-size: clamp(1.5rem, 5vw, 2.5rem);
     color: var(--logoColor);

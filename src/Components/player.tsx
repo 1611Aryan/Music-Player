@@ -205,7 +205,7 @@ const StyledPlayer = styled.div`
         left: 0;
         width: 100%;
         height: 100%;
-        transition: all ease-out 0.5s;
+        transition: background ease-out 0.5s;
         background: var(--slider);
         pointer-events: none;
         transform: translateX(100%);

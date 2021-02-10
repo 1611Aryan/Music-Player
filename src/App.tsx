@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import PlayerBackground from "./Components/playerBackground";
 import Nav from "./Components/nav";
-import Settings from "./Components/settings";
+import Settings from "./Components/settings/settings";
 import Music from "./Components/music";
 import Player from "./Components/player";
 import Library from "./Components/library";
