@@ -83,10 +83,10 @@ const chillHop = {
             id: uuidv4(),
             active: false,
           });
-          setSongs(chillHop.data);
         });
       })
       .catch(err => console.log(err));
+    setSongs(chillHop.data);
   },
 };
 

@@ -1,23 +1,51 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMusic } from "@fortawesome/free-solid-svg-icons";
+import { faMusic, faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 import { nav } from "./../interface";
-
-const Nav: React.FC<nav> = ({ libraryStatus, setLibraryStatus }) => {
+import ProfileMenu from "./profileMenu";
+import { useState } from "react";
+const Nav: React.FC<nav> = ({
+  libraryStatus,
+  setLibraryStatus,
+  settings,
+  setSettings,
+  logoutVisible,
+  setLogoutVisible,
+}) => {
   const libraryHandler = () => {
     //Toggles the library
     setLibraryStatus(!libraryStatus);
   };
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <StyledNav>
       <h1>
         Music<span>Hive</span>
       </h1>
-      <button onClick={libraryHandler}>
-        Library &nbsp;
-        <FontAwesomeIcon icon={faMusic} />
-      </button>
+      <div className="btnContainer">
+        <button className="library" onClick={libraryHandler}>
+          Library &nbsp;
+          <FontAwesomeIcon icon={faMusic} />
+        </button>
+        <button className="profile">
+          <div>
+            <FontAwesomeIcon
+              icon={faUserCircle}
+              onClick={() => setMenuOpen(!menuOpen)}
+            />
+          </div>
+
+          <ProfileMenu
+            menuOpen={menuOpen}
+            setSettings={setSettings}
+            settings={settings}
+            setMenuOpen={setMenuOpen}
+            logoutVisible={logoutVisible}
+            setLogoutVisible={setLogoutVisible}
+          />
+        </button>
+      </div>
     </StyledNav>
   );
 };
@@ -26,10 +54,12 @@ const StyledNav = styled.nav`
   height: 8vh;
   width: 100%;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   z-index: 4;
+
   h1 {
+    margin-left: 10%;
     font-size: clamp(1.5rem, 5vw, 2.5rem);
     color: var(--logoColor);
     span {
@@ -37,8 +67,16 @@ const StyledNav = styled.nav`
     }
   }
 
-  button {
-    font-size: 1.5rem;
+  .btnContainer {
+    width: 25%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 10%;
+  }
+
+  .library {
+    font-size: clamp(0.9rem, 3vw, 1.5rem);
     background: transparent;
     padding: 0.7rem 0.8rem;
     outline: 0;
@@ -53,19 +91,43 @@ const StyledNav = styled.nav`
       color: white;
     }
   }
-  .settings {
-    font-size: 2.5rem;
+  .profile {
+    background: transparent;
+    border: 0;
     cursor: pointer;
-    transition: 1s ease;
+    .userName {
+      opacity: 0;
+      font-size: clamp(0.9rem, 3vw, 1.5rem);
+    }
+    svg {
+      transition: color ease-in-out 0.5s;
+      font-size: clamp(2rem, 4vw, 2.5rem);
+      z-index: 2;
+    }
+    &:focus,
     &:hover {
-      transform: rotate(360deg);
+      outline: none;
+      svg {
+        color: #303030;
+      }
+    }
+    &:focus {
+      span {
+        opacity: 1;
+      }
     }
   }
+  .menuOpen {
+    transform: translateY(0%);
+  }
   @media screen and (max-width: 768px) {
-    button {
+    .library {
       font-size: clamp(0.9rem, 4vw, 1.5rem);
       background: transparent;
       padding: 0.6rem 0.7rem;
+    }
+    .btnContainer {
+      width: 40%;
     }
   }
 `;

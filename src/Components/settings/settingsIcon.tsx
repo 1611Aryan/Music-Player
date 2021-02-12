@@ -8,18 +8,13 @@ const SettingIcon: React.FC<{
 }> = ({ settings, setSettings }) => {
   return (
     <SettingIconStyle>
-      <FontAwesomeIcon
-        className="settings"
-        icon={faCog}
-        onClick={() => {
-          setSettings(!settings);
-        }}
-      />
+      <FontAwesomeIcon className="settings" icon={faCog} />
     </SettingIconStyle>
   );
 };
 
 const SettingIconStyle = styled.div`
+  display: none;
   svg {
     position: absolute;
     top: 2%;

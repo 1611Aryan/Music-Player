@@ -3,7 +3,7 @@ import styled from "styled-components";
 const AudioQualityToggle = () => {
   return (
     <AudioQualityToggleStyled>
-      <label htmlFor="audioQuality">Quality: &nbsp;</label>
+      <label htmlFor="audioQuality">AUDIO QUALITY: &nbsp;</label>
       <select name="audioQuality">
         <option value="">Auto</option>
         <option value="">Low (128kbps)</option>
@@ -16,23 +16,18 @@ const AudioQualityToggle = () => {
 };
 
 const AudioQualityToggleStyled = styled.div`
-  width: 100%;
-  margin-left: 10%;
-  label {
-    font-size: 1.5rem;
-  }
   select {
-    padding: 0.25rem 1rem 0.25rem 0.6rem;
-    font-size: 1rem;
+    padding: clamp(0.1rem, 1vw, 0.25rem) clamp(0.6rem, 2vw, 1rem);
+    font-size: clamp(0.7rem, 2vw, 1rem);
     border-radius: 15px;
     border: 2.5px solid black;
-    background: #c7c7c7;
+    background: #e9e8e8;
     cursor: pointer;
     &:focus {
       outline: none;
     }
     option {
-      font-size: 1rem;
+      font-size: clamp(0.6rem, 2vw, 1rem);
     }
   }
 `;

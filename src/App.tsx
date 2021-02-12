@@ -11,13 +11,15 @@ import { autoPlaySong, activeSongHandler } from "./utilFunc";
 // import Visualiser from "./Components/visualiser";
 
 import GlobalStyle from "./globalStyle";
+import Logout from "./Components/logout";
 function App() {
   //?Ref
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const trackRef = useRef<HTMLDivElement | null>(null);
   //?
   //?State
-
+  const [settings, setSettings] = useState(false);
+  const [logoutVisible, setLogoutVisible] = useState(false);
   const [songs, setSongs] = useState<
     {
       name: string;
@@ -99,8 +101,19 @@ function App() {
       className={`App ${libraryStatus ? "adjust" : ""}`}
     >
       <GlobalStyle />
-      <Nav libraryStatus={libraryStatus} setLibraryStatus={setLibraryStatus} />
-      <Settings />
+      <Nav
+        libraryStatus={libraryStatus}
+        setLibraryStatus={setLibraryStatus}
+        settings={settings}
+        setSettings={setSettings}
+        logoutVisible={logoutVisible}
+        setLogoutVisible={setLogoutVisible}
+      />
+      <Logout
+        logoutVisible={logoutVisible}
+        setLogoutVisible={setLogoutVisible}
+      />
+      <Settings settings={settings} setSettings={setSettings} />
       <PlayerBackground currentSong={currentSong} />
       <Music currentSong={currentSong} isPlaying={isPlaying} />
       <Player

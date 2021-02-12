@@ -14,25 +14,18 @@ const DarkModeToggle = () => {
   };
   return (
     <StyledDarkModeToggle>
-      <label htmlFor="theme">Dark Mode: &nbsp;</label>
+      <label htmlFor="theme">DARK MODE: &nbsp;</label>
       <input onChange={themeToggle} type="checkbox" />
     </StyledDarkModeToggle>
   );
 };
 
 const StyledDarkModeToggle = styled.div`
-  width: 100%;
-  margin-left: 10%;
-  label {
-    font-size: 1.5rem;
-    color: black;
-  }
   input {
     position: relative;
-    width: 15%;
-    height: 1.5rem;
+    width: clamp(2rem, 5vw, 3rem);
+    height: clamp(0.75rem, 3vw, 1.25rem);
     cursor: pointer;
-
     &::before {
       content: "";
       position: absolute;
@@ -40,9 +33,9 @@ const StyledDarkModeToggle = styled.div`
       left: 0;
       width: 100%;
       height: 100%;
-      background: #0c2442;
+      background: #8dbeff;
       border-radius: 25px;
-      border: 2.5px solid black;
+      border: 2px solid black;
       transition: all ease-in-out 0.5s;
       overflow: hidden;
     }
@@ -62,7 +55,7 @@ const StyledDarkModeToggle = styled.div`
   }
   input:checked {
     &::before {
-      background: #8dbeff;
+      background: #0c2442;
     }
     &::after {
       transform: translate(150%, -50%);

@@ -156,6 +156,10 @@ export interface music {
 export interface nav {
   libraryStatus: boolean;
   setLibraryStatus: React.Dispatch<React.SetStateAction<boolean>>;
+  settings: boolean;
+  setSettings: React.Dispatch<React.SetStateAction<boolean>>;
+  logoutVisible: boolean;
+  setLogoutVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface player {

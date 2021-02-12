@@ -66,7 +66,7 @@ const StyledLibrary = styled.div`
   position: fixed;
   width: 25%;
   height: 100%;
-  z-index: 2;
+  z-index: 4;
   opacity: 1;
   background: var(--library);
   box-shadow: 5px 2px 15px 10px rgba(black, 0.2);
@@ -90,9 +90,9 @@ const StyledLibrary = styled.div`
     width: 30%;
   }
   @media screen and (max-width: 768px) {
-    width: 100%;
+    width: 100vw;
 
-    background: white;
+    background: var(--libraryMobile);
   }
 `;
 
