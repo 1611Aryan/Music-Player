@@ -39,7 +39,6 @@ const StyledLogout = styled.div`
 const StyledLogoutPrompt = styled.div`
   width: 35%;
   height: 40%;
-
   border-radius: 20px;
   display: flex;
   justify-content: center;
@@ -54,7 +53,7 @@ const StyledLogoutPrompt = styled.div`
     color: #ececec;
     text-align: center;
     width: 55%;
-    font-size: 1.5rem;
+    font-size: clamp(1.25rem, 3vw, 1.5rem);
     font-weight: 400;
     margin-bottom: 4rem;
   }
@@ -69,7 +68,7 @@ const StyledLogoutPrompt = styled.div`
     align-items: center;
     button {
       width: 100%;
-      font-size: 1.25rem;
+      font-size: clamp(1rem, 3vw, 1.25rem);
       padding: 1.25rem;
       background: rgba(37, 37, 37, 0.8);
       color: #ececec;
@@ -84,6 +83,13 @@ const StyledLogoutPrompt = styled.div`
     }
     button + button {
       border-left: 3px solid lightblue;
+    }
+  }
+  @media (max-width: 768px) {
+    width: 80%;
+    height: 30%;
+    h1 {
+      width: 70%;
     }
   }
 `;
